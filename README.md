@@ -1,6 +1,6 @@
-# 🏢 Implementação de Infraestrutura Corporativa com Windows Server (Laboratório Prático)
+# Implementação de Infraestrutura Corporativa com Windows Server (Laboratório Prático)
 
-## 📌 Objetivo
+## Objetivo
 
 Implementar um ambiente corporativo virtualizado simulando a
 infraestrutura de uma empresa, incluindo:
@@ -16,7 +16,7 @@ infraestrutura de uma empresa, incluindo:
 
 ------------------------------------------------------------------------
 
-## 🖥️ Ambiente Utilizado
+## Ambiente Utilizado
 
 -   VirtualBox
 -   Windows Server 2025 (Server Core)
@@ -28,7 +28,7 @@ infraestrutura de uma empresa, incluindo:
 
 ------------------------------------------------------------------------
 
-## 1️⃣ Configuração Inicial do Servidor
+## 1 - Configuração Inicial do Servidor
 
 -   Instalação do Windows Server (Server Core)
 -   Configuração de IP estático:
@@ -38,7 +38,7 @@ infraestrutura de uma empresa, incluindo:
 
 ------------------------------------------------------------------------
 
-## 2️⃣ Active Directory
+## 2 - Active Directory
 
 Instalação da role:
 
@@ -53,11 +53,12 @@ Install-ADDSForest
 ```
 
 Domínio criado: `empresa.local`
+
 <img width="979" height="668" alt="1 - Get-ADDomain" src="https://github.com/user-attachments/assets/4963f912-5cfc-427a-9831-b8fd2d19b42c" />
 
 ------------------------------------------------------------------------
 
-## 3️⃣ Estrutura Organizacional
+## 3 - Estrutura Organizacional
 
 Criação de OUs:
 
@@ -65,11 +66,12 @@ Criação de OUs:
 New-ADOrganizationalUnit -Name "Financeiro" -Path "DC=empresa,DC=local"
 New-ADOrganizationalUnit -Name "TI" -Path "DC=empresa,DC=local"
 ```
+
 <img width="967" height="670" alt="2 - Get-ADOrganizationalUnit - Filter" src="https://github.com/user-attachments/assets/e7cc1684-4e10-4612-9510-2d724569d3a0" />
 
 ------------------------------------------------------------------------
 
-## 4️⃣ Grupos e Usuários
+## 4 - Grupos e Usuários
 
 Grupos: - GRP_FINANCEIRO - GRP_TI
 
@@ -80,17 +82,19 @@ Validação:
 ``` powershell
 Get-ADPrincipalGroupMembership joao.financeiro
 ```
+
 <img width="715" height="222" alt="3 - Get-ADUser -Filter Select Name, DistinguishedName" src="https://github.com/user-attachments/assets/545307ff-88a4-4a2d-82b0-a4e083a10644" />
 
 ------------------------------------------------------------------------
 
-## 5️⃣ Servidor de Arquivos
+## 5 - Servidor de Arquivos
 
 Criação da pasta:
 
 ``` powershell
 New-Item -Path "C:\Compartilhado" -ItemType Directory
 ```
+
 <img width="774" height="184" alt="8 - Arquivos Compartlhados" src="https://github.com/user-attachments/assets/b5d5301c-9626-4d8b-8ee3-af21c53fcf45" />
 
 Permissões NTFS:
@@ -100,6 +104,7 @@ icacls "C:\Compartilhado" /inheritance:r
 icacls "C:\Compartilhado" /grant "empresa\GRP_TI:(OI)(CI)F"
 icacls "C:\Compartilhado" /grant "empresa\GRP_FINANCEIRO:(OI)(CI)R"
 ```
+
 <img width="484" height="239" alt="9 - Permissões dos arquivos compartilhados" src="https://github.com/user-attachments/assets/dd84768f-ecd9-4c53-91b4-be6e616304a3" />
 
 ### Troubleshooting Realizado
@@ -111,7 +116,7 @@ icacls "C:\Compartilhado" /grant "empresa\GRP_FINANCEIRO:(OI)(CI)R"
 
 ------------------------------------------------------------------------
 
-## 6️⃣ Integração do Cliente ao Domínio
+## 6 - Integração do Cliente ao Domínio
 
 -   Entrada no domínio `empresa.local`
 -   Login com usuário de domínio
@@ -122,11 +127,12 @@ Validação:
 ``` cmd
 ping empresa.local
 ```
+
 <img width="625" height="321" alt="ping empresa local" src="https://github.com/user-attachments/assets/e9e323ce-a77e-4e3a-84ca-1ca42f327053" />
 
 ------------------------------------------------------------------------
 
-## 7️⃣ Implementação de DHCP
+## 7 - Implementação de DHCP
 
 Instalação:
 
@@ -139,7 +145,6 @@ Autorização:
 ``` powershell
 Add-DhcpServerInDC -DnsName "SRV-DC01.empresa.local" -IpAddress 192.168.10.10
 ```
-<img width="853" height="116" alt="6 - DHCP" src="https://github.com/user-attachments/assets/a6e0e02f-c04a-43eb-a585-b780b82c9e7b" />
 
 Criação de escopo:
 
@@ -147,11 +152,14 @@ Criação de escopo:
 Add-DhcpServerv4Scope -Name "EscopoEmpresa" -StartRange 192.168.10.50 -EndRange 192.168.10.100 -SubnetMask 255.255.255.0 -State Active
 ```
 
+<img width="853" height="116" alt="6 - DHCP" src="https://github.com/user-attachments/assets/a6e0e02f-c04a-43eb-a585-b780b82c9e7b" />
+
 Configuração de DNS no escopo:
 
 ``` powershell
 Set-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -DnsServer 192.168.10.10 -DnsDomain empresa.local
 ```
+
 <img width="953" height="287" alt="7 - DHCP Scope ID" src="https://github.com/user-attachments/assets/d7092e9c-f856-4d51-87a9-fef107be0a2d" />
 
 Resultado: - Cliente passou a receber IP automaticamente. - DNS
@@ -161,7 +169,7 @@ configurado automaticamente. - Integração transparente ao domínio.
 
 ------------------------------------------------------------------------
 
-## 🎯 Resultado Final
+##  Resultado Final
 
 Ambiente corporativo funcional contendo:
 
@@ -176,7 +184,7 @@ Ambiente corporativo funcional contendo:
 
 ------------------------------------------------------------------------
 
-## 🚀 Objetivo Profissional
+##  Objetivo Profissional
 
 Projeto desenvolvido com foco em atuação como estagiário ou júnior em:
 
