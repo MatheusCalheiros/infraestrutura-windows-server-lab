@@ -168,10 +168,11 @@ Ambiente corporativo funcional contendo:
 
 ## 🚀 Objetivo Profissional
 
-Projeto desenvolvido com foco em atuação como:
+Projeto desenvolvido com foco em atuação como estagiário ou júnior como:
 
 -   Analista de Suporte
--   Analista de Infraestrutura Júnior
+-   Analista de Infraestrutura
 -   Técnico de TI Corporativo
+-   Áreas da tecnologia correlatas
 
 Simulando cenários reais encontrados em ambientes empresariais.
